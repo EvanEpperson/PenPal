@@ -1,0 +1,12 @@
+{
+  "name": "testingforthe4thtime",
+  "displayName": "testingforthe4thtime",
+  "expo": {
+    "name": "testingforthe4thtime",
+    "slug": "testingforthe4thtime",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
