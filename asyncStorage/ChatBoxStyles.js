@@ -1,12 +1,21 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  chatContainer: { backgroundColor: "white", borderTopRightRadius: 20 },
+  chatContainer: {
+    padding: 15,
+    backgroundColor: "#ccc",
+    alignSelf: "flex-start",
+    borderRadius: 20,
+    margin: 0,
+    marginBottom: 0,
+    maxWidth: "80%",
+    position: "relative",
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 0,
+  },
   chatTxt: {
-    color: "black",
-    fontSize: 18,
-    marginVertical: 5,
+    color: "white",
     fontWeight: "500",
-    padding: 8,
+    marginLeft: 10,
   },
 });

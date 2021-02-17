@@ -6,11 +6,7 @@ export default StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-  input: {
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    width: "70%",
-  },
+
 
   sendBtnContainer: {
     // height: appStyle.fieldHeight,

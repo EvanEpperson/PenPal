@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, SafeAreaView } from 'react-native';
+import { Image, ImageBackground, SafeAreaView } from 'react-native';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
 import { Input, Button } from 'react-native-elements';
 import { keys, setAsyncStorage, setUniqueValue, uuid } from '../asyncStorage';
@@ -94,6 +94,14 @@ const SignUp = ({navigation}) => {
         keyboardVerticalOffset={50}
       >
         <SafeAreaView style={styles.container}>
+          <ImageBackground
+            source={{
+              uri:
+                "https://c0.wallpaperflare.com/preview/693/266/472/communication-letters-envelope-write.jpg",
+            }}
+            style={styles.backgroundImage}
+            resizeMode="stretch"
+          />
           {/* <View>
             <Image
               source={{
@@ -158,5 +166,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 300,
+  },
+  backgroundImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    opacity: 0.3,
   },
 });

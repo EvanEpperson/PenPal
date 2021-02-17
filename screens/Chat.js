@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, FlatList, TextInput, TouchableOpacity, Keyboard } from 'react-native'
-import { colors } from 'react-native-elements';
+import { Avatar, colors } from 'react-native-elements';
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import styles from '../asyncStorage/ChatStyles';
 import globalStyle from '../asyncStorage/globalStyle';
@@ -12,11 +12,40 @@ import ImagePicker from "react-native-image-crop-picker";
 
 const Chat = ({route, navigation}) => {
   const { params } = route;
-  const { name, img, imgText, guestUserId, currentUserId } = params;
+  const { name, img, imgText, guestUserId, currentUserId} = params;
   const [msgValue, setMsgValue] = useState("");
   const [messeges, setMesseges] = useState([]);
 
   // console.log(messeges);
+
+
+
+  useEffect(() => {
+    try {
+      firebase
+        .database()
+        .ref("messeges")
+        .child(currentUserId)
+        .child(guestUserId)
+        .on("value", (dataSnapshot) => {
+          let msgs = [];
+          dataSnapshot.forEach((child) => {
+            // console.log(child);
+            msgs.push({
+              sendBy: child.val().messege.sender,
+              recievedBy: child.val().messege.reciever,
+              msg: child.val().messege.msg,
+              img: child.val().messege.img,
+            });
+          });
+          // console.log(msgs);
+          setMesseges(msgs.reverse());
+          // console.log(msgs);
+        });
+    } catch (error) {
+      alert(error);
+    }
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -72,32 +101,6 @@ const Chat = ({route, navigation}) => {
     }
   };
 
-  useEffect(() => {
-    try {
-      firebase
-        .database()
-        .ref("messeges")
-        .child(currentUserId)
-        .child(guestUserId)
-        .on("value", (dataSnapshot) => {
-          let msgs = [];
-          dataSnapshot.forEach((child) => {
-            // console.log(child);
-            msgs.push({
-              sendBy: child.val().messege.sender,
-              recievedBy: child.val().messege.reciever,
-              msg: child.val().messege.msg,
-              img: child.val().messege.img,
-            });
-          });
-          // console.log(msgs);
-          setMesseges(msgs.reverse());
-          // console.log(msgs);
-        });
-    } catch (error) {
-      alert(error);
-    }
-  }, []);
 
   const handleSend = () => {
     setMsgValue("");
@@ -179,7 +182,7 @@ const Chat = ({route, navigation}) => {
     return (
       <SafeAreaView
         //makes the background black and then go to the styles page of chat and you can change the white background to something else
-        style={[globalStyle.flex1, { backgroundColor: colors.black }]}
+        style={[globalStyle.flex1, { backgroundColor: "black" }]}
       >
         <KeyboardAvoidingView
           keyboardVerticalOffset={90}
@@ -191,6 +194,23 @@ const Chat = ({route, navigation}) => {
             onPress={Keyboard.dismiss}
           >
             <>
+              {/* <Avatar
+                position="absolute"
+                //   helps with web styling apparently
+                containerStyle={{
+                  position: "absolute",
+                  bottom: -15,
+                  right: -5,
+                }}
+                bottom={-15}
+                right={-5}
+                size={30}
+                rounded
+                source={{
+                  uri: profileImg,
+                }}
+              /> */}
+              
               <FlatList
                 inverted
                 data={messeges}
@@ -238,6 +258,7 @@ const Chat = ({route, navigation}) => {
                   numberOfLines={10}
                   inputStyle={styles.input}
                   value={msgValue}
+                  autofocus
                   onChangeText={(text) => handleOnChange(text)}
                   onSubmitEditing={() => handleSend()}
                 />

@@ -6,7 +6,7 @@ import Profile from '../asyncStorage/Profile';
 import firebase from '../firebase'
 import ShowUsers from '../asyncStorage/ShowUsers';
 import { deviceHeight } from '../asyncStorage/appStyle';
-import StickyHeader from '../asyncStorage/StickyHeader';
+// import StickyHeader from '../asyncStorage/StickyHeader';
 import ImagePicker from "react-native-image-crop-picker";
 
 const Dashboard = ({navigation}) => {
@@ -211,14 +211,15 @@ const LogoutUser = async () => {
 
     return (
       <SafeAreaView>
-        {getScrollPosition > getOpacity() && (
+        {/* {getScrollPosition > getOpacity() && (
           <StickyHeader
             name={name}
             img={profileImg}
             onImgTap={() => imgTaP(profileImg, name)}
           />
-        )}
+        )} */}
         <FlatList
+        style={styles.container}
           alwaysBounceVertical={false}
           data={allUsers}
           keyExtractor={(_, index) => index.toString()}
@@ -240,7 +241,7 @@ const LogoutUser = async () => {
                 onEditImgTap={() => selectPhotoTapped()}
                 onImgTap={() => imgTaP(profileImg, name)}
               />
-            </View>
+             </View>
           }
           renderItem={({ item }) => (
             <ShowUsers
@@ -257,4 +258,5 @@ const LogoutUser = async () => {
 
 export default Dashboard
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+})

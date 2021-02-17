@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { StyleSheet, View, SafeAreaView, Image, KeyboardAvoidingView, ImageBackground} from "react-native";
 import { Button, Input, Text } from "react-native-elements";
 import firebase from '../firebase'
-import { setAsyncStorage, keys, setUniqueValue } from "../asyncStorage/index";
+import { setAsyncStorage, keys, setUniqueValue, getAsyncStorage } from "../asyncStorage/index";
 // import LoginRequest from '../asyncStorage/index'
 
-const Splash = ({navigation}) => {
+const Login = ({navigation}) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
 const { email, password } = credentials;
+
+const setInitialState = () => {
+  setCredentials({ email: "", password: "" });
+};  
+
+
+  const handleOnChange = (name, value) => {
+    setCredentials({
+      ...credentials,
+      [name]: value,
+    });
+  };
 
 const LoginRequest = async (email, password) => {
   try {
@@ -20,16 +32,7 @@ const LoginRequest = async (email, password) => {
   }
 };
 
-const setInitialState = () => {
-  setCredentials({ email: "", password: "" });
-};          
-
-  const handleOnChange = (name, value) => {
-    setCredentials({
-      ...credentials,
-      [name]: value,
-    });
-  };
+        
 
   onLoginPress = () => {
     if (!email) {
@@ -54,6 +57,29 @@ const setInitialState = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    title: 'testing'
+  } )
+
+      // useEffect(() => {
+      //   const redirect = setTimeout(() => {
+      //     getAsyncStorage(keys.uuid)
+      //       .then((uuid) => {
+      //         if (uuid) {
+      //           setUniqueValue(uuid);
+      //           navigation.replace("Dashboard");
+      //         } else {
+      //           navigation.replace("Login");
+      //         }
+      //       })
+      //       .catch((err) => {
+      //         console.log(err);
+      //         navigation.replace("");
+      //       });
+      //   }, 500);
+      //   return () => clearTimeout(redirect);
+      // }, [navigation]);
+
     return (
       <KeyboardAvoidingView
         style={styles.container}
@@ -77,6 +103,7 @@ const setInitialState = () => {
             width: 200,
             height: 200,
             borderRadius: 20,
+            
           }}
         />
         <View style={styles.inputContainer}>
@@ -110,7 +137,7 @@ const setInitialState = () => {
     );
 }
 
-export default Splash
+export default Login
 
 const styles = StyleSheet.create({
   container: {

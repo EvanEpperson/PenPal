@@ -5,6 +5,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Chat from "./screens/Chat";
 import Dashboard from "./screens/Dashboard";
+import Splash from "./screens/Splash";
 import Login from "./screens/Login";
 import ShowFullImg from "./screens/ShowFullImg";
 import SignUp from "./screens/SignUp";
@@ -27,9 +28,37 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{
+            headerBackTitle: null,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerBackTitle: null,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            headerBackTitle: null,
+            title: "Sign Up to Start Pen Paling",
+          }}
+        />
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            headerBackTitle: null,
+            title: "PenPals",
+          }}
+        />
         <Stack.Screen
           name="ShowFullImg"
           component={ShowFullImg}
